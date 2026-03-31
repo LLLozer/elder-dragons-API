@@ -4,7 +4,7 @@ import { MonsterModel } from "./monster.model.js";
 import { ElementsModel } from "./elements.model.js";
 
 export const MonsterElementModel = sequelize.define(
-  "MonsterElement",
+  "Monster_Element",
   {
     id: {
       primaryKey: true,
@@ -27,5 +27,14 @@ MonsterModel.belongsToMany(ElementsModel, {
 ElementsModel.belongsToMany(MonsterModel, {
   through: MonsterElementModel,
   foreignKey: "element_id",
+  as: "monsters",
+});
+
+MonsterElementModel.belongsTo(ElementsModel, {
+  foreignKey: "element_id",
+  as: "elements",
+});
+MonsterElementModel.belongsTo(MonsterModel, {
+  foreignKey: "monster_id",
   as: "monsters",
 });
