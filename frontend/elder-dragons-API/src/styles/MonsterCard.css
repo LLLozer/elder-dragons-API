@@ -1,0 +1,59 @@
+.monster-card {
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.monster-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.monster-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px;
+}
+
+.monster-info {
+  padding: 16px;
+}
+
+.monster-info h2 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: #e2b96f;
+}
+
+.monster-info p {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 4px 0;
+}
+
+.monster-elements {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.element {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.element--fuego  { background-color: #e84118; }
+.element--agua   { background-color: #0097e6; }
+.element--hielo  { background-color: #74b9ff; color: #000; }
+.element--rayo   { background-color: #fbc531; color: #000; }
+.element--dragón { background-color: #8e44ad; }

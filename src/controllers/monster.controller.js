@@ -1,7 +1,8 @@
 import { MonsterModel } from "../models/monster.model.js";
+import { ElementsModel } from "../models/elements.model.js";
 
 export const createMonster = async (req, res) => {
-  const { monster_name, habitat, size, generation, image } = req.body;
+  const { monster_name, habitat, size, generation, image, elements } = req.body;
   try {
     const newMonster = await MonsterModel.create({
       monster_name: monster_name,
@@ -10,6 +11,9 @@ export const createMonster = async (req, res) => {
       generation: generation,
       image: image,
     });
+    if (elements && elements.length > 0) {
+      await newMonster.setElements(elements);
+    }
     return res
       .status(201)
       .json({ msg: "Monstruo registrado con éxito", newMonster });
@@ -22,7 +26,16 @@ export const createMonster = async (req, res) => {
 
 export const getMonsters = async (req, res) => {
   try {
-    const monsters = await MonsterModel.findAll();
+    const monsters = await MonsterModel.findAll({
+      include: [
+        {
+          model: ElementsModel,
+          as: "elements",
+          attributes: ["id", "element_name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
     return res
       .status(200)
       .json({ msg: "Listando todos los Dragones Ancianos", monsters });
@@ -37,7 +50,16 @@ export const getMonsters = async (req, res) => {
 export const getMonsterByID = async (req, res) => {
   const { id } = req.params;
   try {
-    const monster = await MonsterModel.findByPk(id);
+    const monster = await MonsterModel.findByPk(id, {
+      include: [
+        {
+          model: ElementsModel,
+          as: "elements",
+          attributes: ["id", "element_name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
     return res.status(200).json({ msg: "Se encontró:", monster });
   } catch (error) {
     return res.status(500).json({
