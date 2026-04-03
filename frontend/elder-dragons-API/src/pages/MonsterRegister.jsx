@@ -1,5 +1,6 @@
 import { useElements } from "../hooks/useElements";
 import { useForm } from "../hooks/useForm";
+import "../styles/MonsterRegister.css";
 
 export const MonsterRegister = () => {
   const { form, handleChange, handleSubmit, handleReset } = useForm({
@@ -24,9 +25,8 @@ export const MonsterRegister = () => {
 
   return (
     <div className="register">
-      <h2>Registrar Dragón Anciano</h2>
-
-      <form>
+      <div className="register__form">
+        <h2>Registrar Dragón Anciano</h2>
         <input
           type="text"
           name="monster_name"
@@ -77,16 +77,18 @@ export const MonsterRegister = () => {
           ))}
         </div>
 
-        <button
-          type="button"
-          onClick={() => handleSubmit("http://localhost:3004/api/monsters")}
-        >
-          Registrar
-        </button>
-        <button type="button" onClick={handleReset}>
-          Limpiar
-        </button>
-      </form>
+        <div className="register__buttons">
+          <button
+            type="button"
+            onClick={() => handleSubmit("http://localhost:3000/api/monsters")}
+          >
+            Registrar
+          </button>
+          <button type="button" onClick={handleReset}>
+            Limpiar
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

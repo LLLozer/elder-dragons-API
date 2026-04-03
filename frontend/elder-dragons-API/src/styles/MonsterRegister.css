@@ -1,0 +1,101 @@
+.register {
+  min-height: 100vh;
+  background-image: url("https://images6.alphacoders.com/139/1393464.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.register__form {
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(226, 185, 111, 0.4);
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  height: fit-content;
+  color: #fff;
+}
+
+.register__form h2 {
+  color: #e2b96f;
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.register__form input[type="text"] {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.register__form input[type="text"]:focus {
+  border-color: rgba(226, 185, 111, 0.6);
+}
+
+.register__form input[type="text"]::placeholder {
+  color: #888;
+}
+
+.elements-check {
+  margin-bottom: 20px;
+}
+
+.elements-check p {
+  color: #e2b96f;
+  margin-bottom: 10px;
+}
+
+.elements-check label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 16px;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.register__buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.register__buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.register__buttons button:first-child {
+  background: #e2b96f;
+  color: #000;
+  font-weight: bold;
+}
+
+.register__buttons button:last-child {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.register__buttons button:hover {
+  opacity: 0.85;
+}

@@ -1,5 +1,6 @@
 import { MonsterModel } from "../models/monster.model.js";
 import { ElementsModel } from "../models/elements.model.js";
+import { Op } from "sequelize";
 
 export const createMonster = async (req, res) => {
   const { monster_name, habitat, size, generation, image, elements } = req.body;
@@ -25,8 +26,15 @@ export const createMonster = async (req, res) => {
 };
 
 export const getMonsters = async (req, res) => {
+  const { name } = req.query;
+  const where = name
+    ? {
+        monster_name: { [Op.like]: `%${name}%` },
+      }
+    : {};
   try {
     const monsters = await MonsterModel.findAll({
+      where,
       include: [
         {
           model: ElementsModel,
@@ -71,24 +79,44 @@ export const getMonsterByID = async (req, res) => {
 
 export const updateMonster = async (req, res) => {
   const { id } = req.params;
-  const { monster_name, habitat, size, generation, image } = req.body;
+  const { monster_name, habitat, size, generation, image, elements } = req.body;
   try {
     const monster = await MonsterModel.findByPk(id);
-    const update = await monster.update({
-      monster_name: monster_name,
-      habitat: habitat,
-      size: size,
-      generation: generation,
-      image: image,
+    if (!monster) {
+      return res.status(404).json({ msg: "Dragón Anciano no encontrado" });
+    }
+
+    await monster.update({
+      monster_name,
+      habitat,
+      size,
+      generation,
+      image,
     });
+
+    if (elements) {
+      await monster.setElements(elements);
+    }
+
+    const updatedMonster = await MonsterModel.findByPk(id, {
+      include: [
+        {
+          model: ElementsModel,
+          as: "elements",
+          attributes: ["id", "element_name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
     return res.status(200).json({
       msg: "Registro de Dragón Anciano actualizado con éxito",
-      update,
+      updatedMonster,
     });
   } catch (error) {
     return res.status(500).json({
       msg: "Error inesperado al actualizar registro",
-      error: error.msg,
+      error: error.message,
     });
   }
 };

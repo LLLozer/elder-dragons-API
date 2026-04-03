@@ -11,10 +11,10 @@ export const useForm = ({ initialValue }) => {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (url, method = "POST") => {
     try {
-      const res = await fetch("http://localhost:3004/api/monsters", {
-        method: "POST",
+      const res = await fetch(url, {
+        method,
         body: JSON.stringify(form),
         headers: {
           "Content-Type": "application/json",
@@ -29,8 +29,8 @@ export const useForm = ({ initialValue }) => {
   };
 
   const handleReset = () => {
-    setForm({ initialValue });
+    setForm(initialValue);
   };
 
-  return { form, handleChange, handleSubmit, handleReset };
+  return { form, setForm, handleChange, handleSubmit, handleReset };
 };
