@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useMonsterSearch } from "../hooks/useMonsterSearch";
 import { useForm } from "../hooks/useForm";
 import { useElements } from "../hooks/useElements";
+import "../styles/MonsterUpdate.css";
+import Swal from "sweetalert2";
 
 export const MonsterUpdate = () => {
   const [searchName, setSearchName] = useState("");
@@ -42,8 +44,6 @@ export const MonsterUpdate = () => {
 
   return (
     <div className="update">
-      <h2>Actualizar Dragón Anciano</h2>
-
       <div className="update__search">
         <input
           type="text"
@@ -60,7 +60,13 @@ export const MonsterUpdate = () => {
       {error && <p>Error: {error}</p>}
 
       {monster && (
-        <form>
+        <div className="update__form">
+          <div className="update__card">
+            <img src={monster.image} alt={monster.monster_name} />
+            <h3>{monster.monster_name}</h3>
+          </div>
+
+          <h2>Actualizar Dragón Anciano</h2>
           <input
             type="text"
             name="monster_name"
@@ -106,18 +112,30 @@ export const MonsterUpdate = () => {
             ))}
           </div>
 
-          <button
-            type="button"
-            onClick={() =>
-              handleSubmit(
-                `http://localhost:3004/api/monsters/${monster.id}`,
-                "PUT",
-              )
-            }
-          >
-            Actualizar
-          </button>
-        </form>
+          <div className="update__buttons">
+            <button
+              type="button"
+              onClick={async () => {
+                const data = await handleSubmit(
+                  `http://localhost:3004/api/monsters/${monster.id}`,
+                  "PUT",
+                );
+                if (data) {
+                  Swal.fire({
+                    icon: "success",
+                    title: "¡Actualización exitosa!",
+                    text: `${form.monster_name} fue actualizado correctamente`,
+                    confirmButtonColor: "#e2b96f",
+                    background: "#1a1a2e",
+                    color: "#fff",
+                  });
+                }
+              }}
+            >
+              Actualizar
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

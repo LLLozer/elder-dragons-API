@@ -14,6 +14,9 @@ export const Navbar = () => {
         <li>
           <NavLink to="/update-monster">Actualizar Dragón</NavLink>
         </li>
+        <li>
+          <NavLink to="/delete-monster">Eliminar Registro</NavLink>
+        </li>
       </ul>
     </nav>
   );

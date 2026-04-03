@@ -1,6 +1,7 @@
 import { useElements } from "../hooks/useElements";
 import { useForm } from "../hooks/useForm";
 import "../styles/MonsterRegister.css";
+import Swal from "sweetalert2";
 
 export const MonsterRegister = () => {
   const { form, handleChange, handleSubmit, handleReset } = useForm({
@@ -80,7 +81,30 @@ export const MonsterRegister = () => {
         <div className="register__buttons">
           <button
             type="button"
-            onClick={() => handleSubmit("http://localhost:3000/api/monsters")}
+            onClick={async () => {
+              const data = await handleSubmit(
+                "http://localhost:3004/api/monsters",
+              );
+              if (data) {
+                Swal.fire({
+                  icon: "success",
+                  title: "¡Registro exitoso!",
+                  text: `${form.monster_name} fue agregado correctamente`,
+                  confirmButtonColor: "#e2b96f",
+                  background: "#1a1a2e",
+                  color: "#fff",
+                });
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: "No se pudo registrar el monstruo",
+                  confirmButtonColor: "#e2b96f",
+                  background: "#1a1a2e",
+                  color: "#fff",
+                });
+              }
+            }}
           >
             Registrar
           </button>
