@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMonsterSearch } from "../hooks/useMonsterSearch";
 import Swal from "sweetalert2";
 import "../styles/MonsterDelete.css";
+import { Loading } from "../components/Loading";
 
 export const MonsterDelete = () => {
   const [searchName, setSearchName] = useState("");
@@ -54,7 +55,7 @@ export const MonsterDelete = () => {
         </button>
       </div>
 
-      {loading && <p>Buscando...</p>}
+      {loading && <Loading />}
       {error && <p>Error: {error}</p>}
 
       {monster && (

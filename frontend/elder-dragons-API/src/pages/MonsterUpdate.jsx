@@ -4,6 +4,7 @@ import { useForm } from "../hooks/useForm";
 import { useElements } from "../hooks/useElements";
 import "../styles/MonsterUpdate.css";
 import Swal from "sweetalert2";
+import { Loading } from "../components/Loading";
 
 export const MonsterUpdate = () => {
   const [searchName, setSearchName] = useState("");
@@ -56,7 +57,7 @@ export const MonsterUpdate = () => {
         </button>
       </div>
 
-      {loading && <p>Buscando...</p>}
+      {loading && <Loading />}
       {error && <p>Error: {error}</p>}
 
       {monster && (

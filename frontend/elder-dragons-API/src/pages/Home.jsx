@@ -1,11 +1,12 @@
 import "../styles/Home.css";
 import { useMonsters } from "../hooks/useMonsters";
 import { MonsterCard } from "../components/MonsterCard";
+import { Loading } from "../components/Loading";
 
 export const Home = () => {
   const { monsters, loading, error } = useMonsters();
 
-  if (loading) return <p>Cargando monstruos...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
   return (
