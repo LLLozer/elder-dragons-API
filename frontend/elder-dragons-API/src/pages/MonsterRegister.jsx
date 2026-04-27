@@ -1,7 +1,8 @@
-import { useElements } from "../hooks/useElements";
+// import { useElements } from "../hooks/useElements";
 import { useForm } from "../hooks/useForm";
 import "../styles/MonsterRegister.css";
 import Swal from "sweetalert2";
+import { useElements } from "../components/ElementsContext";
 
 export const MonsterRegister = () => {
   const { form, handleChange, handleSubmit, handleReset } = useForm({
