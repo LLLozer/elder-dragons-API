@@ -1,13 +1,44 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "CHANGE":
+      return {
+        ...state,
+        [action.name]: action.value,
+      };
+    case "RESET":
+      return action.value;
+    case "SET":
+      return action.value;
+    default:
+      return state;
+  }
+};
 
 export const useForm = ({ initialValue }) => {
-  const [form, setForm] = useState(initialValue);
+  const [form, dispatch] = useReducer(reducer, initialValue);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    setForm({
-      ...form,
-      [name]: value,
+    dispatch({
+      type: "CHANGE",
+      name: name,
+      value: value,
+    });
+  };
+
+  const handleReset = () => {
+    dispatch({
+      type: "RESET",
+      value: initialValue,
+    });
+  };
+
+  const handleSet = (value) => {
+    dispatch({
+      type: "SET",
+      value: value,
     });
   };
 
@@ -27,10 +58,5 @@ export const useForm = ({ initialValue }) => {
       console.log("Error en el submit: ", error);
     }
   };
-
-  const handleReset = () => {
-    setForm(initialValue);
-  };
-
-  return { form, setForm, handleChange, handleSubmit, handleReset };
+  return { form, dispatch, handleChange, handleSubmit, handleReset, handleSet };
 };

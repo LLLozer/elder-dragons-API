@@ -12,7 +12,7 @@ export const MonsterUpdate = () => {
   const { monster, loading, error, searchMonster } = useMonsterSearch();
   const { elements } = useElements();
 
-  const { form, setForm, handleChange, handleSubmit } = useForm({
+  const { form, handleSet, handleChange, handleSubmit, handleReset } = useForm({
     initialValue: {
       monster_name: "",
       habitat: "",
@@ -25,7 +25,7 @@ export const MonsterUpdate = () => {
 
   useEffect(() => {
     if (monster) {
-      setForm({
+      handleSet({
         monster_name: monster.monster_name,
         habitat: monster.habitat,
         size: monster.size,
