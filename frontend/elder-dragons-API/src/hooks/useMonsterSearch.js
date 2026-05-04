@@ -18,11 +18,12 @@ export const useMonsterSearch = () => {
     } finally {
       setLoading(false);
     }
+    console.log("Buscando monstruo");
   };
   return {
     monster,
     loading,
     error,
-    searchMonster
+    searchMonster,
   };
 };
