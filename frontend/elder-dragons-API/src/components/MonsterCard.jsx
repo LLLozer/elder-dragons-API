@@ -1,4 +1,5 @@
 import "../styles/MonsterCard.css";
+import { DescriptionModal } from "./DescriptionModal";
 
 export const MonsterCard = ({ monster }) => {
   const { monster_name, habitat, size, generation, image, elements } = monster;
@@ -34,6 +35,7 @@ export const MonsterCard = ({ monster }) => {
         ) : (
           <p>Sin elementos</p>
         )}
+        <DescriptionModal monster={monster} />
       </div>
     </div>
   );
