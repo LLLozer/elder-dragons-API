@@ -1,8 +1,10 @@
+import { useDescription } from "../hooks/useDescription";
 import "../styles/MonsterCard.css";
 import { DescriptionModal } from "./DescriptionModal";
 
 export const MonsterCard = ({ monster }) => {
   const { monster_name, habitat, size, generation, image, elements } = monster;
+  const { descriptions } = useDescription();
 
   return (
     <div className="monster-card">
@@ -35,7 +37,11 @@ export const MonsterCard = ({ monster }) => {
         ) : (
           <p>Sin elementos</p>
         )}
-        <DescriptionModal monster={monster} />
+        <div>
+          {descriptions.map((description) => (
+            <DescriptionModal key={description.id} description={description} />
+          ))}
+        </div>
       </div>
     </div>
   );

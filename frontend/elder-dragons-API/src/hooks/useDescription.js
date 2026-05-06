@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const useDescription = () => {
+export const useDescription = () => {
   const [descriptions, setDescriptions] = useState([]);
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState();
 
-  const fetchDescriptions = async () => {
-    try {
-      const res = await fetch("http://localhost:3004/api/descriptions");
-      const data = await res.json();
-      setDescriptions(data.descriptions);
-    } catch (error) {}
-  };
-  fetchDescriptions();
+  useEffect(() => {
+    const fetchDescriptions = async () => {
+      try {
+        const res = await fetch("http://localhost:3004/api/descriptions");
+        const data = await res.json();
+        setDescriptions(data.descriptions);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDescriptions();
+  }, []);
 
-  return <div></div>;
+  return { descriptions, loading, error };
 };

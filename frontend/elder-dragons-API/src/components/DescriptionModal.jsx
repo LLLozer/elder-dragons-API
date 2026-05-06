@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "../hooks/useForm";
 
-export const DescriptionModal = ({ monster }) => {
+export const DescriptionModal = ({ description }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { form, dispatch, handleChange, handleReset, handleSubmit } = useForm({
@@ -13,6 +13,7 @@ export const DescriptionModal = ({ monster }) => {
 
   const handleModal = () => {
     try {
+      setIsOpen(true);
     } catch (error) {}
   };
 
@@ -20,9 +21,13 @@ export const DescriptionModal = ({ monster }) => {
     setIsOpen(false);
   };
 
+  console.log(description.abilities);
+
   return (
     <div>
-      <button onClick={handleModal}>Descripción Adicional</button>
+      <button onClick={handleModal}>Descripción</button>
+      <button onClick={closeModal}>Cerrar Descripción</button>
+      {isOpen ? <p>{description.abilities}</p> : <p>NO</p>}
     </div>
   );
 };
