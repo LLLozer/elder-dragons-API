@@ -13,15 +13,23 @@ export const DescriptionModel = sequelize.define(
       type: DataTypes.TEXT(),
       allowNull: true,
     },
+    title: {
+      type: DataTypes.STRING(),
+      allowNull: true,
+    },
+    icon: {
+      type: DataTypes.STRING(),
+      allowNull: true,
+    },
   },
   { timestamps: false },
 );
 
 MonsterModel.hasOne(DescriptionModel, {
   foreignKey: "monster_id",
-  as: "monster",
+  as: "description",
 });
 DescriptionModel.belongsTo(MonsterModel, {
   foreignKey: "monster_id",
-  as: "monster",
+  as: "description",
 });

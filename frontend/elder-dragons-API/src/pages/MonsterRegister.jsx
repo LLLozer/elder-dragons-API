@@ -1,8 +1,8 @@
-// import { useElements } from "../hooks/useElements";
 import { useForm } from "../hooks/useForm";
 import "../styles/MonsterRegister.css";
 import Swal from "sweetalert2";
 import { useElements } from "../components/ElementsContext";
+import { useCallback } from "react";
 
 export const MonsterRegister = () => {
   const { form, handleChange, handleSubmit, handleReset } = useForm({
@@ -17,13 +17,17 @@ export const MonsterRegister = () => {
   });
 
   const { elements } = useElements();
-  const handleElementChange = (elementId) => {
-    const already = form.elements.includes(elementId);
-    const updated = already
-      ? form.elements.filter((id) => id !== elementId)
-      : [...form.elements, elementId];
-    handleChange({ target: { name: "elements", value: updated } });
-  };
+  const handleElementChange = useCallback(
+    (elementId) => {
+      const already = form.elements.includes(elementId);
+      const updated = already
+        ? form.elements.filter((id) => id !== elementId)
+        : [...form.elements, elementId];
+      handleChange({ target: { name: "elements", value: updated } });
+    },
+    [form.elements],
+    handleChange,
+  );
 
   return (
     <div className="register">

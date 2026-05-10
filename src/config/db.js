@@ -16,7 +16,7 @@ export const DBStart = async () => {
   try {
     await sequelize.authenticate();
     console.log("Conexión exitosa a la base de datos.");
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
   } catch (error) {
     console.log("No se pudo conectar a la base de datos. ", error);
   }

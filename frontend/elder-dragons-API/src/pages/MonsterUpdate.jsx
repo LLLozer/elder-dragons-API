@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMonsterSearch } from "../hooks/useMonsterSearch";
 import { useForm } from "../hooks/useForm";
-// import { useElements } from "../hooks/useElements";
 import "../styles/MonsterUpdate.css";
 import Swal from "sweetalert2";
 import { Loading } from "../components/Loading";
@@ -36,13 +35,17 @@ export const MonsterUpdate = () => {
     }
   }, [monster]);
 
-  const handleElementChange = (elementId) => {
-    const already = form.elements.includes(elementId);
-    const updated = already
-      ? form.elements.filter((id) => id !== elementId)
-      : [...form.elements, elementId];
-    handleChange({ target: { name: "elements", value: updated } });
-  };
+  const handleElementChange = useCallback(
+    (elementId) => {
+      const already = form.elements.includes(elementId);
+      const updated = already
+        ? form.elements.filter((id) => id !== elementId)
+        : [...form.elements, elementId];
+      handleChange({ target: { name: "elements", value: updated } });
+    },
+    [form.elements],
+    handleChange,
+  );
 
   return (
     <div className="update">

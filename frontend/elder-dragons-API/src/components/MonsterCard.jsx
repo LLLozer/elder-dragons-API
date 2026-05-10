@@ -1,10 +1,25 @@
-import { useDescription } from "../hooks/useDescription";
-import "../styles/MonsterCard.css";
+import { useState } from "react";
 import { DescriptionModal } from "./DescriptionModal";
+import "../styles/MonsterCard.css";
 
 export const MonsterCard = ({ monster }) => {
-  const { monster_name, habitat, size, generation, image, elements } = monster;
-  const { descriptions } = useDescription();
+  const {
+    monster_name,
+    habitat,
+    size,
+    generation,
+    image,
+    elements,
+    description,
+  } = monster;
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
+  console.log(monster_name, description);
 
   return (
     <div className="monster-card">
@@ -37,11 +52,18 @@ export const MonsterCard = ({ monster }) => {
         ) : (
           <p>Sin elementos</p>
         )}
-        <div>
-          {descriptions.map((description) => (
-            <DescriptionModal key={description.id} description={description} />
-          ))}
-        </div>
+        {description && (
+          <>
+            <button onClick={handleModal}>Ver descripción</button>
+            {isOpen && (
+              <DescriptionModal
+                description={description}
+                monsterName={monster_name}
+                onClose={() => setIsOpen(false)}
+              />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

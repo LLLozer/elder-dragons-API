@@ -2,13 +2,15 @@ import { DescriptionModel } from "../models/description.model.js";
 import { MonsterModel } from "../models/monster.model.js";
 
 export const addDescription = async (req, res) => {
-  const { abilities, behaviour } = req.body;
+  const { abilities, behaviour, title, icon } = req.body;
   const { id } = req.params;
   try {
     const monsterId = await MonsterModel.findByPk(id);
     const newDesc = await DescriptionModel.create({
       abilities,
       behaviour,
+      title,
+      icon,
       monster_id: monsterId.id,
     });
     return res.status(201).json({
@@ -73,7 +75,7 @@ export const findDescriptionById = async (req, res) => {
 
 export const updateDesc = async (req, res) => {
   const { id } = req.params;
-  const { abilities, behaviour } = req.body;
+  const { abilities, behaviour, title, icon } = req.body;
   try {
     const desc = await DescriptionModel.findByPk(id);
     console.log(desc);

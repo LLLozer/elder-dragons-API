@@ -1,6 +1,7 @@
 import { MonsterModel } from "../models/monster.model.js";
 import { ElementsModel } from "../models/elements.model.js";
 import { Op } from "sequelize";
+import { DescriptionModel } from "../models/description.model.js";
 
 export const createMonster = async (req, res) => {
   const { monster_name, habitat, size, generation, image, elements } = req.body;
@@ -41,6 +42,11 @@ export const getMonsters = async (req, res) => {
           as: "elements",
           attributes: ["id", "element_name"],
           through: { attributes: [] },
+        },
+        {
+          model: DescriptionModel,
+          as: "description",
+          attributes: ["id", "abilities", "behaviour", "title", "icon"],
         },
       ],
     });
